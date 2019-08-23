@@ -5,6 +5,11 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { UserModule } from './user/user.module';
+import { ApplicationModule } from './application/application.module';
+import { SkillModule } from './skill/skill.module';
+import { ApplicationSkillService } from './application-skill/application-skill.service';
+import { ApplicationSkillResolver } from './application-skill/application-skill.resolver';
+import { ApplicationSkillModule } from './application-skill/application-skill.module';
 
 @Module({
   imports: [
@@ -13,9 +18,9 @@ import { UserModule } from './user/user.module';
       "host": "localhost",
       "port": 3306,
       "username": "root",
-      "password": "",
-      "database": "typeorm",
-      "synchronize": true,
+      "password": "root",
+      "database": "recruitment",
+      "synchronize": false,
       "logging": false,
       "entities": [__dirname + '/**/*.entity{.ts,.js}'],
     }),
@@ -25,10 +30,13 @@ import { UserModule } from './user/user.module';
       playground: true,
       autoSchemaFile: 'schema.gql',
     }),
+    ApplicationModule,
+    SkillModule,
+    ApplicationSkillModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ApplicationSkillService, ApplicationSkillResolver],
 })
 export class AppModule {
-  constructor(private readonly connection: Connection) {}
+  constructor(private readonly connection: Connection) { }
 }

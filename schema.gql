@@ -3,6 +3,27 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input ApplicationInput {
+  name: String
+  lastName: String
+  phone: String
+  email: String
+  englishLevel: Float
+  createdAt: DateTime
+}
+
+type ApplicationOutput {
+  id: ID!
+  name: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  englishLevel: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  skills: SkillOutput
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -10,10 +31,28 @@ scalar DateTime
 
 type Mutation {
   createUser(input: UserInput!): UserOutput!
+  createApplication(input: ApplicationInput!): ApplicationOutput!
+  createSkill(input: SkillInput!): SkillOutput!
 }
 
 type Query {
   users: [UserOutput!]!
+  applications: [ApplicationOutput!]!
+  skills: [SkillOutput!]!
+}
+
+input SkillInput {
+  name: String!
+  description: String!
+  createdAt: DateTime
+}
+
+type SkillOutput {
+  id: ID!
+  name: String!
+  description: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input UserInput {

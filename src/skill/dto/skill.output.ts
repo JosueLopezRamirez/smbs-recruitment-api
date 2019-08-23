@@ -1,16 +1,16 @@
-import { Field, ObjectType, ID } from 'type-graphql';
+import { ObjectType, Field, ID } from 'type-graphql';
 
 @ObjectType()
-export class UserOutput {
+export class SkillOutput {
 
     @Field(() => ID)
     readonly id: number;
 
     @Field()
-    readonly username: string;
+    readonly name: string;
 
     @Field()
-    readonly password: string;
+    readonly description: string;
 
     @Field()
     readonly createdAt: Date;
@@ -19,4 +19,3 @@ export class UserOutput {
     readonly updatedAt: Date;
 
 }
-

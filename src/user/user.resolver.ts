@@ -7,18 +7,16 @@ import { User } from '../entity/users.entity';
 @Resolver('User')
 export class UserResolver {
     constructor(
-        private readonly userService: UserService,
-        ) { }
-        
+        private readonly _service: UserService,
+    ) { }
+
     @Query(() => [UserOutput])
     async users() {
-        return await this.userService.findAll();
+        return await this._service.findAll();
     }
 
     @Mutation(() => UserOutput)
-        async createUser(@Args('input') input: UserInput): Promise<User> {
-        return await this.userService.create(input);
-        //pubSub.publish('cat added', { catAdded: cat });
-    
+    async createUser(@Args('input') input: UserInput): Promise<User> {
+        return await this._service.create(input);
     }
 }

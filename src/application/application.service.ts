@@ -1,27 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entity/users.entity';
-import { UserInput } from './dto/user.input';
+import { Application } from '../entity/applications.entity';
+import { ApplicationInput } from './dto/application.input';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class UserService {
-
+export class ApplicationService {
     constructor(
-        @InjectRepository(User)
-        private readonly _repository: Repository<User>
+        @InjectRepository(Application)
+        private readonly _repository: Repository<Application>
     ) { }
 
-    async findAll(): Promise<User[]> {
+    async findAll(): Promise<Application[]> {
         return await this._repository.find();
     }
 
-    async create(input: UserInput): Promise<User> {
+    async create(input: ApplicationInput): Promise<Application> {
 
         let record = {
             ...input,
             createdAt: Date.now().toString()
-        };
+        }
 
         return await this._repository.save(record);
     }
