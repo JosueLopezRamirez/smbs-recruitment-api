@@ -21,7 +21,7 @@ import { ApplicationSkillModule } from './application-skill/application-skill.mo
       "password": "root",
       "database": "recruitment",
       "synchronize": false,
-      "logging": false,
+      "logging": true,
       "entities": [__dirname + '/**/*.entity{.ts,.js}'],
     }),
     UserModule,

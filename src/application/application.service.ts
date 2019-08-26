@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Application } from '../entity/applications.entity';
 import { ApplicationInput } from './dto/application.input';
 import { Repository } from 'typeorm';
+import { getValidParams } from '../helpers';
 
 @Injectable()
 export class ApplicationService {
@@ -11,8 +12,8 @@ export class ApplicationService {
         private readonly _repository: Repository<Application>
     ) { }
 
-    async findAll(id?: number): Promise<Application[]> {
-        return await this._repository.find({ where: { id } });
+    async findAll(args?: Object): Promise<Application[]> {
+        return await this._repository.find({ where: getValidParams(args) });
     }
 
     async create(input: ApplicationInput): Promise<Application> {
