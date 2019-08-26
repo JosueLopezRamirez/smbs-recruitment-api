@@ -11,8 +11,8 @@ export class ApplicationService {
         private readonly _repository: Repository<Application>
     ) { }
 
-    async findAll(): Promise<Application[]> {
-        return await this._repository.find();
+    async findAll(id?: number): Promise<Application[]> {
+        return await this._repository.find({ where: { id } });
     }
 
     async create(input: ApplicationInput): Promise<Application> {

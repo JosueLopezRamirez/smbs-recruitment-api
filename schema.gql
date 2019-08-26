@@ -3,6 +3,18 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Application {
+  id: Float!
+  name: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  englishLevel: Float!
+  createdAt: String!
+  updatedAt: Float!
+  applicationSkill: [ApplicationSkill!]
+}
+
 input ApplicationInput {
   name: String
   lastName: String
@@ -12,16 +24,13 @@ input ApplicationInput {
   createdAt: DateTime
 }
 
-type ApplicationOutput {
-  id: ID!
-  name: String!
-  lastName: String!
-  phone: String!
-  email: String!
-  englishLevel: Float!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  skills: SkillOutput
+type ApplicationSkill {
+  id: Float!
+  isMain: Boolean!
+  createdAt: String!
+  updatedAt: Float!
+  application: Application
+  skill: Skill
 }
 
 """
@@ -30,15 +39,23 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 type Mutation {
-  createUser(input: UserInput!): UserOutput!
-  createApplication(input: ApplicationInput!): ApplicationOutput!
-  createSkill(input: SkillInput!): SkillOutput!
+  createUser(input: UserInput!): User!
+  createApplication(input: ApplicationInput!): Application!
+  createSkill(input: SkillInput!): Skill!
 }
 
 type Query {
-  users: [UserOutput!]!
-  applications: [ApplicationOutput!]!
-  skills: [SkillOutput!]!
+  users: [User!]!
+  applications(id: Int): [Application!]!
+  skills: [Skill!]!
+}
+
+type Skill {
+  id: Float!
+  name: String!
+  description: String!
+  createdAt: String!
+  updatedAt: Float!
 }
 
 input SkillInput {
@@ -47,24 +64,16 @@ input SkillInput {
   createdAt: DateTime
 }
 
-type SkillOutput {
-  id: ID!
-  name: String!
-  description: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+type User {
+  id: Float!
+  username: String!
+  password: String!
+  createdAt: String!
+  updatedAt: Float!
 }
 
 input UserInput {
   username: String!
   password: String!
   createdAt: DateTime!
-}
-
-type UserOutput {
-  id: ID!
-  username: String!
-  password: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }

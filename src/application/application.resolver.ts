@@ -2,7 +2,7 @@ import { Resolver, Args, Mutation, Query } from '@nestjs/graphql';
 import { ApplicationService } from './application.service';
 import { Application } from '../entity/applications.entity';
 import { ApplicationInput } from './dto/application.input';
-import { ApplicationOutput } from './dto/application.output';
+import { Int } from 'type-graphql';
 
 @Resolver('Application')
 export class ApplicationResolver {
@@ -10,12 +10,13 @@ export class ApplicationResolver {
         private readonly _service: ApplicationService
     ) { }
 
-    @Query(() => [ApplicationOutput])
-    async applications() {
-        return await this._service.findAll();
+    @Query(() => [Application])
+    async applications(
+        @Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
+        return await this._service.findAll(id);
     }
 
-    @Mutation(() => ApplicationOutput)
+    @Mutation(() => Application)
     async createApplication(@Args('input') input: ApplicationInput): Promise<Application> {
         return await this._service.create(input);
     }
