@@ -21,7 +21,6 @@ input ApplicationInput {
   phone: String
   email: String
   englishLevel: Float
-  createdAt: DateTime
 }
 
 type ApplicationSkill {
@@ -33,11 +32,6 @@ type ApplicationSkill {
   skill: Skill
 }
 
-"""
-The javascript `Date` as string. Type represents date and time as the ISO Date string.
-"""
-scalar DateTime
-
 type Mutation {
   createUser(input: UserInput!): User!
   createApplication(input: ApplicationInput!): Application!
@@ -45,9 +39,12 @@ type Mutation {
 }
 
 type Query {
-  users: [User!]!
+  users(id: Int): [User!]!
+  user(id: Int!): User
   applications(id: Int): [Application!]!
+  application(id: Int!): Application
   skills(id: Int): [Skill!]!
+  skill(id: Int!): Skill
 }
 
 type Skill {
@@ -62,7 +59,6 @@ type Skill {
 input SkillInput {
   name: String!
   description: String!
-  createdAt: DateTime
 }
 
 type User {
@@ -76,5 +72,4 @@ type User {
 input UserInput {
   username: String!
   password: String!
-  createdAt: DateTime!
 }

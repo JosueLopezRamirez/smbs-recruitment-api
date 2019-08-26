@@ -9,6 +9,4 @@ export class UserInput {
   @Field()
   readonly password: string;
 
-  @Field()
-  readonly createdAt: Date
 }

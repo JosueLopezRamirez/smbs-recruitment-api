@@ -15,6 +15,11 @@ export class ApplicationResolver {
         return await this._service.findAll({ id });
     }
 
+    @Query(() => Application, { nullable: true })
+    async application(@Args({ name: 'id', nullable: false, type: () => Int }) id: number) {
+        return await this._service.findOne(id);
+    }
+
     @Mutation(() => Application)
     async createApplication(@Args('input') input: ApplicationInput): Promise<Application> {
         return await this._service.create(input);

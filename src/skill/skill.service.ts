@@ -16,6 +16,10 @@ export class SkillService {
         return await this._repository.find({ where: getValidParams(args) });
     }
 
+    async findOne(id: number): Promise<Skill> {
+        return await this._repository.findOne({ where: { id } });
+    }
+
     async create(input: SkillInput): Promise<Skill> {
         let record = {
             ...input,

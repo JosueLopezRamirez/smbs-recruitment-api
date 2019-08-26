@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entity/users.entity';
 import { UserInput } from './dto/user.input';
 import { Repository } from 'typeorm';
+import { getValidParams } from '../helpers';
 
 @Injectable()
 export class UserService {
@@ -12,8 +13,12 @@ export class UserService {
         private readonly _repository: Repository<User>
     ) { }
 
-    async findAll(): Promise<User[]> {
-        return await this._repository.find();
+    async findAll(args?: Object): Promise<User[]> {
+        return await this._repository.find({ where: getValidParams(args) });
+    }
+
+    async findOne(id: number): Promise<User> {
+        return await this._repository.findOne({ where: { id } });
     }
 
     async create(input: UserInput): Promise<User> {

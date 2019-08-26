@@ -8,7 +8,4 @@ export class SkillInput {
 
     @Field()
     readonly description: string;
-
-    @Field({ nullable: true })
-    readonly createdAt: Date;
 }

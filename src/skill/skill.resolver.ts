@@ -15,6 +15,11 @@ export class SkillResolver {
         return await this._service.findAll({ id });
     }
 
+    @Query(() => Skill, { nullable: true })
+    async skill(@Args({ name: 'id', nullable: false, type: () => Int }) id: number) {
+        return await this._service.findOne(id);
+    }
+
     @Mutation(() => Skill)
     async createSkill(@Args('input') input: SkillInput): Promise<Skill> {
         return await this._service.create(input);
