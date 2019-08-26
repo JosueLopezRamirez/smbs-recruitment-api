@@ -3,7 +3,6 @@ import { ApplicationService } from './application.service';
 import { Application } from '../entity/applications.entity';
 import { ApplicationInput } from './dto/application.input';
 import { Int } from 'type-graphql';
-import { Optional } from '@nestjs/common';
 
 @Resolver('Application')
 export class ApplicationResolver {
@@ -12,9 +11,7 @@ export class ApplicationResolver {
     ) { }
 
     @Query(() => [Application])
-    async applications(
-        @Optional()
-        @Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
+    async applications(@Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
         return await this._service.findAll({ id });
     }
 

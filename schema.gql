@@ -47,7 +47,7 @@ type Mutation {
 type Query {
   users: [User!]!
   applications(id: Int): [Application!]!
-  skills: [Skill!]!
+  skills(id: Int): [Skill!]!
 }
 
 type Skill {
@@ -56,6 +56,7 @@ type Skill {
   description: String!
   createdAt: String!
   updatedAt: Float!
+  applicationSkill: [ApplicationSkill!]!
 }
 
 input SkillInput {

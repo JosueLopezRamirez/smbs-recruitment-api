@@ -2,6 +2,7 @@ import { Resolver, Args, Mutation, Query } from '@nestjs/graphql';
 import { SkillService } from './skill.service';
 import { SkillInput } from './dto/skill.input';
 import { Skill } from '../entity/skills.entity';
+import { Int } from 'type-graphql';
 
 @Resolver('Skill')
 export class SkillResolver {
@@ -10,8 +11,8 @@ export class SkillResolver {
     ) { }
 
     @Query(() => [Skill])
-    async skills() {
-        return await this._service.findAll();
+    async skills(@Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
+        return await this._service.findAll({ id });
     }
 
     @Mutation(() => Skill)

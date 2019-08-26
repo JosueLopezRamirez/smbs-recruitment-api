@@ -25,6 +25,7 @@ export class Skill {
     @UpdateDateColumn({ type: "timestamp" })
     updatedAt: number;
 
+    @Field((type) => ApplicationSkill)
     @OneToMany((type) => ApplicationSkill, applicationSkill => applicationSkill.application, { eager: true })
     public applicationSkill!: ApplicationSkill[];
 
