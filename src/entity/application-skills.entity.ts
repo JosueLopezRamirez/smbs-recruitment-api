@@ -10,8 +10,8 @@ export class ApplicationSkill {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Field()
-    @Column()
+    @Field({ defaultValue: false })
+    @Column({ default: false })
     isMain: boolean;
 
     @Field()
@@ -23,10 +23,10 @@ export class ApplicationSkill {
     updatedAt: number;
 
     @Field(type => Application, { nullable: true })
-    @ManyToOne(type => Application, application => application.applicationSkill, { lazy: true })
+    @ManyToOne(type => Application, application => application.applicationSkill, { lazy: true, cascade: ['insert'] })
     public application!: Application;
 
     @Field(type => Skill, { nullable: true })
-    @ManyToOne(type => Skill, skill => skill.applicationSkill, { lazy: true })
+    @ManyToOne(type => Skill, skill => skill.applicationSkill, { lazy: true, cascade: ['insert'] })
     public skill!: Skill;
 }

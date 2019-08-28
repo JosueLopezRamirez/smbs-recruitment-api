@@ -10,6 +10,7 @@ type Application {
   phone: String!
   email: String!
   englishLevel: Float!
+  url: String!
   createdAt: String!
   updatedAt: Float!
   applicationSkill: [ApplicationSkill!]
@@ -25,7 +26,7 @@ input ApplicationInput {
 
 type ApplicationSkill {
   id: Float!
-  isMain: Boolean!
+  isMain: Boolean
   createdAt: String!
   updatedAt: Float!
   application: Application
@@ -34,6 +35,7 @@ type ApplicationSkill {
 
 type Mutation {
   createUser(input: UserInput!): User!
+  createApplicationWithSkills(skillIds: [Int!]!, application: ApplicationInput!): Application!
   createApplication(input: ApplicationInput!): Application!
   createSkill(input: SkillInput!): Skill!
 }

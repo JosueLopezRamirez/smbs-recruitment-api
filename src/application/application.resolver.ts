@@ -21,8 +21,15 @@ export class ApplicationResolver {
     }
 
     @Mutation(() => Application)
+    async createApplicationWithSkills(
+        @Args('application') application: ApplicationInput,
+        @Args({ name: 'skillIds', type: () => [Int], }) skillIds
+    ): Promise<Application> {
+        return await this._service.createWithSkills(application, skillIds);
+    }
+
+    @Mutation(() => Application)
     async createApplication(@Args('input') input: ApplicationInput): Promise<Application> {
         return await this._service.create(input);
     }
-
 }

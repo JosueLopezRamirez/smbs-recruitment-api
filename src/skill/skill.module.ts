@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Skill])],
-  providers: [SkillResolver, SkillService]
+  providers: [SkillResolver, SkillService],
+  exports: [SkillService]
 })
 export class SkillModule { }
