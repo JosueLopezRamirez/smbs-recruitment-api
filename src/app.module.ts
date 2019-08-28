@@ -15,10 +15,10 @@ import { ApplicationSkillModule } from './application-skill/application-skill.mo
   imports: [
     TypeOrmModule.forRoot({
       "type": "mysql",
-      "host": "localhost",
+      "host": "smbs-instance.cb4kqp6rssxe.us-east-2.rds.amazonaws.com",
       "port": 3306,
-      "username": "root",
-      "password": "root",
+      "username": "smbsadmin",
+      "password": "5heEn35Wvbr5",
       "database": "recruitment",
       "synchronize": false,
       "logging": true,
