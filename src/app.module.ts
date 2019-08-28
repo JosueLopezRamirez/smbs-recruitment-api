@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
@@ -34,8 +32,7 @@ import { ApplicationSkillModule } from './application-skill/application-skill.mo
     SkillModule,
     ApplicationSkillModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, ApplicationSkillService, ApplicationSkillResolver],
+  providers: [ApplicationSkillService, ApplicationSkillResolver],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) { }
