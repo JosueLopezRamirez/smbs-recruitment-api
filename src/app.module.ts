@@ -26,7 +26,8 @@ import { ApplicationSkillModule } from './application-skill/application-skill.mo
     GraphQLModule.forRoot({
       debug: false,
       playground: true,
-      autoSchemaFile: 'schema.gql',
+      introspection: true,
+      autoSchemaFile: 'schema.gql'
     }),
     ApplicationModule,
     SkillModule,
