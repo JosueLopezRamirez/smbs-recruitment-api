@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinTable } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinTable, JoinColumn } from 'typeorm';
 import { ApplicationSkill } from './application-skills.entity';
 import { ObjectType, Field } from 'type-graphql';
 
@@ -43,16 +43,17 @@ export class Application {
     updatedAt: number;
 
     @Field(type => [ApplicationSkill], { nullable: true })
-    @OneToMany((type) => ApplicationSkill, applicationSkill => applicationSkill.skill, { lazy: true, cascade: ['insert'] })
+    @OneToMany((type) => ApplicationSkill, applicationSkill => applicationSkill.application, { lazy: true, cascade: ['insert'] })
     public applicationSkill!: ApplicationSkill[];
 
-    constructor(params?: { name: string, lastName: string, phone: string, email: string, englishLevel: number }) {
+    constructor(params?: { name: string, lastName: string, phone: string, email: string, englishLevel: number, url: string }) {
         if (params) {
             this.name = params.name;
             this.lastName = params.lastName;
             this.phone = params.phone;
             this.email = params.email;
             this.englishLevel = params.englishLevel;
+            this.url = params.url;
         }
     }
 }

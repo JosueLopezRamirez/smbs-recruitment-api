@@ -22,6 +22,7 @@ input ApplicationInput {
   phone: String
   email: String
   englishLevel: Float
+  url: String
 }
 
 type ApplicationSkill {
@@ -33,9 +34,14 @@ type ApplicationSkill {
   skill: Skill
 }
 
+input ApplicationSkillInput {
+  id: Float!
+  isMain: Boolean = false
+}
+
 type Mutation {
   createUser(input: UserInput!): User!
-  createApplicationWithSkills(skillIds: [Int!]!, application: ApplicationInput!): Application!
+  createApplicationWithSkills(skills: [ApplicationSkillInput!]!, application: ApplicationInput!): Application!
   createApplication(input: ApplicationInput!): Application!
   createSkill(input: SkillInput!): Skill!
 }

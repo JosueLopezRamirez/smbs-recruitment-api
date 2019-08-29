@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn } from 'typeorm';
 import { ApplicationSkill } from './application-skills.entity';
 import { ObjectType, Field } from 'type-graphql';
 
@@ -26,7 +26,7 @@ export class Skill {
     updatedAt: number;
 
     @Field((type) => ApplicationSkill)
-    @OneToMany((type) => ApplicationSkill, applicationSkill => applicationSkill.application, { eager: true })
+    @OneToMany((type) => ApplicationSkill, applicationSkill => applicationSkill.skill, { lazy: true })
     public applicationSkill!: ApplicationSkill[];
 
 }

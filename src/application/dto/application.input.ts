@@ -18,4 +18,7 @@ export class ApplicationInput {
     @Field({ nullable: true })
     readonly englishLevel: number;
 
+    @Field({ nullable: true })
+    readonly url: string;
+
 }

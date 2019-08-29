@@ -7,6 +7,7 @@ import { getValidParams } from '../helpers';
 import { ApplicationSkill } from '../entity/application-skills.entity';
 import { Skill } from '../entity/skills.entity';
 import { In } from 'typeorm';
+import { ApplicationSkillInput } from 'src/application-skill/dto/application-skill.input';
 
 @Injectable()
 export class ApplicationService {
@@ -33,11 +34,11 @@ export class ApplicationService {
         return await this._repository.save(record);
     }
 
-    async createWithSkills(application: ApplicationInput, skillIds: [number]): Promise<Application> {
+    async createWithSkills(application: ApplicationInput, skills: [ApplicationSkillInput]): Promise<Application> {
 
         let filter: object;
-        if (skillIds.length > 0)
-            filter = { id: In(skillIds) };
+        if (skills.length > 0)
+            filter = { id: In(skills.map(_ => _.id)) };
 
         let newApplication = new Application(application);
         let newSkills = await this._repositorySkill.find({ where: filter });
@@ -45,8 +46,11 @@ export class ApplicationService {
 
         newSkills.map(_ => {
             let newAppSkill = new ApplicationSkill();
+            let foundSkill = skills.find(sk => sk.id === _.id);
+
             newAppSkill.skill = _;
             newAppSkill.application = newApplication;
+            newAppSkill.isMain = foundSkill ? foundSkill.isMain : false;
             applicationSkills.push(newAppSkill);
         })
 

@@ -3,6 +3,7 @@ import { ApplicationService } from './application.service';
 import { Application } from '../entity/applications.entity';
 import { ApplicationInput } from './dto/application.input';
 import { Int } from 'type-graphql';
+import { ApplicationSkillInput } from '../application-skill/dto/application-skill.input';
 
 @Resolver('Application')
 export class ApplicationResolver {
@@ -23,7 +24,7 @@ export class ApplicationResolver {
     @Mutation(() => Application)
     async createApplicationWithSkills(
         @Args('application') application: ApplicationInput,
-        @Args({ name: 'skillIds', type: () => [Int], }) skillIds
+        @Args({ name: 'skills', type: () => [ApplicationSkillInput], }) skillIds
     ): Promise<Application> {
         return await this._service.createWithSkills(application, skillIds);
     }
