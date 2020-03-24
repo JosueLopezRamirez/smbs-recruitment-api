@@ -12,11 +12,11 @@ import { ApplicationSkillModule } from './application-skill/application-skill.mo
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      "type": "mysql",
-      "host": "smbs-instance.cb4kqp6rssxe.us-east-2.rds.amazonaws.com",
-      "port": 3306,
-      "username": "smbsadmin",
-      "password": "5heEn35Wvbr5",
+      "type": "postgres",
+      "host": "tumidb.cbvpubcios7n.us-east-2.rds.amazonaws.com",
+      "port": 5432,
+      "username": "tumiusr",
+      "password": "Nicaragu^&jkiu#z",
       "database": "recruitment",
       "synchronize": false,
       "logging": true,
@@ -25,7 +25,7 @@ import { ApplicationSkillModule } from './application-skill/application-skill.mo
     UserModule,
     GraphQLModule.forRoot({
       debug: false,
-      playground: false,
+      playground: true,
       introspection: true,
       autoSchemaFile: 'schema.gql'
     }),
