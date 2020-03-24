@@ -1,9 +1,9 @@
 {
-   "type": "mysql",
-   "host": "smbs-instance.cb4kqp6rssxe.us-east-2.rds.amazonaws.com",
-   "port": 3306,
-   "username": "smbsadmin",
-   "password": "5heEn35Wvbr5",
+   "type": "postgres",
+   "host": "tumidb.cbvpubcios7n.us-east-2.rds.amazonaws.com",
+   "port": 5432,
+   "username": "tumiusr",
+   "password": "Nicaragu^&jkiu#z",
    "database": "recruitment",
    "synchronize": true,
    "logging": false,
@@ -18,3 +18,4 @@
       "migrationsDir": "src/migration"
    }
 }
+
