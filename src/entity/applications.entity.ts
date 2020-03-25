@@ -85,7 +85,7 @@ export class Application {
     @ManyToOne(type => Speciality, speciality => speciality.application, { lazy: true, cascade: ['insert'] })
     public speciality!: Speciality;
 
-    constructor(params?: { name: string, lastName: string, phone: string, email: string, englishLevel: number, url: string, affinityId: number, modalityId: number, languageId: number, specialityId: number  }) {
+    constructor(params?: { name: string, lastName: string, phone: string, email: string, englishLevel: number, url: string, yearsExperience: number, affinityId: number, modalityId: number, languageId: number, specialityId: number  }) {
         if (params) {
             this.name = params.name;
             this.lastName = params.lastName;
@@ -93,6 +93,7 @@ export class Application {
             this.email = params.email;
             this.englishLevel = params.englishLevel;
             this.url = params.url;
+            this.yearsExperience = params.yearsExperience;
             this.affinityId = params.affinityId;
             this.modalityId = params.modalityId;
             this.languageId = params.languageId;
