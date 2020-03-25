@@ -3,10 +3,23 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Affinity {
+  id: Float!
+  name: String!
+  createdAt: String!
+  updatedAt: Float!
+  application: [Application!]!
+}
+
+input AffinityInput {
+  name: String!
+}
+
 type Application {
   id: Float!
   name: String!
   lastName: String!
+  yearsExperience: Float!
   phone: String!
   email: String!
   englishLevel: Float!
@@ -14,6 +27,10 @@ type Application {
   createdAt: String!
   updatedAt: Float!
   applicationSkill: [ApplicationSkill!]
+  affinity: Affinity
+  modality: Modality
+  language: Languages
+  speciality: Speciality
 }
 
 input ApplicationInput {
@@ -21,8 +38,13 @@ input ApplicationInput {
   lastName: String
   phone: String
   email: String
+  yearsExperience: Float
   englishLevel: Float
   url: String
+  affinityId: Int!
+  modalityId: Int!
+  languageId: Int!
+  specialityId: Int!
 }
 
 type ApplicationSkill {
@@ -39,11 +61,55 @@ input ApplicationSkillInput {
   isMain: Boolean = false
 }
 
+type DescribeYourself {
+  id: Float!
+  name: String!
+  createdAt: String!
+  updatedAt: Float!
+  applicationSkill: [ApplicationSkill!]!
+}
+
+type Language {
+  id: Float!
+  name: String!
+  createdAt: String!
+  updatedAt: Float!
+}
+
+type Languages {
+  id: Float!
+  name: String!
+  createdAt: String!
+  updatedAt: Float!
+  application: [Application!]!
+}
+
+input LanguagesInput {
+  name: String!
+}
+
+type Modality {
+  id: Float!
+  name: String!
+  createdAt: String!
+  updatedAt: Float!
+  application: [Application!]!
+}
+
+input ModalityInput {
+  name: String!
+}
+
 type Mutation {
   createUser(input: UserInput!): User!
   createApplicationWithSkills(skills: [ApplicationSkillInput!]!, application: ApplicationInput!): Application!
   createApplication(input: ApplicationInput!): Application!
   createSkill(input: SkillInput!): Skill!
+  createSkillType(input: SkillTypeInput!): SkillType!
+  createLanguage(input: LanguagesInput!): Languages!
+  createModality(input: ModalityInput!): Modality!
+  createSpeciality(input: SpecialityInput!): Speciality!
+  createAffinity(input: AffinityInput!): Affinity!
 }
 
 type Query {
@@ -53,6 +119,16 @@ type Query {
   application(id: Int!): Application
   skills(id: Int): [Skill!]!
   skill(id: Int!): Skill
+  skillTypes(id: Int): [SkillType!]!
+  skillType(id: Int!): SkillType
+  languages(id: Int): [Languages!]!
+  language(id: Int!): Languages
+  modalitys(id: Int): [Modality!]!
+  modality(id: Int!): Modality
+  specialitys(id: Int): [Speciality!]!
+  speciality(id: Int!): Speciality
+  affinitys(id: Int): [Affinity!]!
+  affinity(id: Int!): Affinity
 }
 
 type Skill {
@@ -62,11 +138,36 @@ type Skill {
   createdAt: String!
   updatedAt: Float!
   applicationSkill: [ApplicationSkill!]!
+  skillType: SkillType
 }
 
 input SkillInput {
   name: String!
   description: String!
+}
+
+type SkillType {
+  id: Float!
+  name: String!
+  createdAt: String!
+  updatedAt: Float!
+  skill: [Skill!]!
+}
+
+input SkillTypeInput {
+  name: String!
+}
+
+type Speciality {
+  id: Float!
+  name: String!
+  createdAt: String!
+  updatedAt: Float!
+  application: [Application!]!
+}
+
+input SpecialityInput {
+  name: String!
 }
 
 type User {

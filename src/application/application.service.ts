@@ -38,15 +38,15 @@ export class ApplicationService {
 
         let filter: object;
         if (skills.length > 0)
-            filter = { id: In(skills.map(_ => _.id)) };
+            filter = { id: In(skills.map((sk) => sk.id)) };
 
         let newApplication = new Application(application);
         let newSkills = await this._repositorySkill.find({ where: filter });
-        let applicationSkills: ApplicationSkill[] = newSkills.map(_ => {
+        let applicationSkills: ApplicationSkill[] = newSkills.map((nsk) => {
             let newAppSkill = new ApplicationSkill();
-            let foundSkill = skills.find(sk => sk.id === _.id);
+            let foundSkill = skills.find(sk => sk.id === nsk.id);
 
-            newAppSkill.skill = _;
+            newAppSkill.skill = nsk;
             newAppSkill.application = newApplication;
             newAppSkill.isMain = foundSkill ? foundSkill.isMain : false;
             return newAppSkill;

@@ -8,6 +8,11 @@ import { SkillModule } from './skill/skill.module';
 import { ApplicationSkillService } from './application-skill/application-skill.service';
 import { ApplicationSkillResolver } from './application-skill/application-skill.resolver';
 import { ApplicationSkillModule } from './application-skill/application-skill.module';
+import { SkillTypeModule } from './skill-type/skill-type.module';
+import { LanguagesModule } from './languages/languages.module';
+import { ModalityModule } from './modality/modality.module';
+import { SpecialityModule } from './speciality/speciality.module';
+import { AffinityModule } from './affinity/affinity.module';
 
 @Module({
   imports: [
@@ -32,6 +37,11 @@ import { ApplicationSkillModule } from './application-skill/application-skill.mo
     ApplicationModule,
     SkillModule,
     ApplicationSkillModule,
+    SkillTypeModule,
+    LanguagesModule,
+    AffinityModule,
+    ModalityModule,
+    SpecialityModule,
   ],
   providers: [ApplicationSkillService, ApplicationSkillResolver],
 })

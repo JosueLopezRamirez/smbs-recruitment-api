@@ -1,4 +1,4 @@
-import { Field, InputType } from 'type-graphql';
+import { Field, InputType, Int } from 'type-graphql';
 
 @InputType()
 export class ApplicationInput {
@@ -16,9 +16,24 @@ export class ApplicationInput {
     readonly email: string;
 
     @Field({ nullable: true })
+    readonly yearsExperience: number;
+
+    @Field({ nullable: true })
     readonly englishLevel: number;
 
     @Field({ nullable: true })
     readonly url: string;
+
+    @Field(() => Int, { nullable: false })
+    public affinityId!: number;
+
+    @Field(() => Int, { nullable: false })
+    public modalityId!: number;
+
+    @Field(()=> Int, { nullable: false })
+    public languageId!: number;
+
+    @Field(() => Int, { nullable: false })
+    public specialityId!: number;
 
 }
