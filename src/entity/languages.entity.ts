@@ -5,7 +5,6 @@ import { ObjectType, Field } from 'type-graphql';
 @Entity('language')
 @ObjectType()
 export class Languages {
-    
     @Field()
     @PrimaryGeneratedColumn()
     id: number;
@@ -19,10 +18,10 @@ export class Languages {
     createdAt: string;
 
     @Field()
-    @UpdateDateColumn({ type: "timestamp" })
+    @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: number;
 
-    @Field((type) => Application)
-    @OneToMany((type) => Application, application => application.language, { lazy: true })
+    @Field(() => Application)
+    @OneToMany(() => Application, application => application.language, { lazy: true })
     public application!: Application[];
 }

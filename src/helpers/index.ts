@@ -1,8 +1,10 @@
-export function getValidParams(args): Object {
+export function getValidParams(args): object {
     let filter = {};
     Object.keys(args).map(key => {
-        if (args[key])
+        if (args[key]) {
             filter = { ...filter, [key]: args[key] };
-    })
+        }
+    });
+
     return filter;
 }

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinTable, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
 import { Application } from './applications.entity';
 import { Skill } from './skills.entity';
 import { Field, ObjectType } from 'type-graphql';
@@ -19,14 +19,14 @@ export class ApplicationSkill {
     createdAt: string;
 
     @Field()
-    @UpdateDateColumn({ type: "timestamp" })
+    @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: number;
 
-    @Field(type => Application, { nullable: true })
-    @ManyToOne(type => Application, application => application.applicationSkill, { lazy: true, cascade: ['insert'] })
+    @Field(() => Application, { nullable: true })
+    @ManyToOne(() => Application, application => application.applicationSkill, { lazy: true, cascade: ['insert'] })
     public application!: Application;
 
-    @Field(type => Skill, { nullable: true })
-    @ManyToOne(type => Skill, skill => skill.applicationSkill, { lazy: true, cascade: ['insert'] })
+    @Field(() => Skill, { nullable: true })
+    @ManyToOne(() => Skill, skill => skill.applicationSkill, { lazy: true, cascade: ['insert'] })
     public skill!: Skill;
 }

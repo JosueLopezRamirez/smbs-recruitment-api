@@ -9,22 +9,22 @@ import { getValidParams } from '../helpers';
 export class SkillService {
     constructor(
         @InjectRepository(Skill)
-        private readonly _repository: Repository<Skill>
+        private readonly repository: Repository<Skill>,
     ) { }
 
-    async findAll(args?: Object): Promise<Skill[]> {
-        return await this._repository.find({ where: getValidParams(args) });
+    async findAll(args?: any): Promise<Skill[]> {
+        return await this.repository.find({ where: getValidParams(args) });
     }
 
     async findOne(id: number): Promise<Skill> {
-        return await this._repository.findOne({ where: { id } });
+        return await this.repository.findOne({ where: { id } });
     }
 
     async create(input: SkillInput): Promise<Skill> {
-        let record = {
+        const record = {
             ...input,
-            createdAt: Date.now().toString()
-        }
-        return await this._repository.save(record);
+            createdAt: Date.now().toString(),
+        };
+        return await this.repository.save(record);
     }
 }

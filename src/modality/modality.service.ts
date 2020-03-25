@@ -11,22 +11,22 @@ export class ModalityService {
 
     constructor(
         @InjectRepository(Modality)
-        private readonly _repository: Repository<Modality>
+        private readonly repository: Repository<Modality>,
     ) { }
 
-    async findAll(args?: Object): Promise<Modality[]> {
-        return await this._repository.find({ where: getValidParams(args) });
+    async findAll(args?: any): Promise<Modality[]> {
+        return await this.repository.find({ where: getValidParams(args) });
     }
 
     async findOne(id: number): Promise<Modality> {
-        return await this._repository.findOne({ where: { id } });
+        return await this.repository.findOne({ where: { id } });
     }
 
     async create(input: ModalityInput): Promise<Modality> {
-        let record = {
+        const record = {
             ...input,
-            createdAt: Date.now().toString()
-        }
-        return await this._repository.save(record);
+            createdAt: Date.now().toString(),
+        };
+        return await this.repository.save(record);
     }
 }

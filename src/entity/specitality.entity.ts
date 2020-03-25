@@ -5,7 +5,6 @@ import { ObjectType, Field } from 'type-graphql';
 @ObjectType()
 @Entity()
 export class Speciality {
-
     @Field()
     @PrimaryGeneratedColumn()
     id: number;
@@ -19,7 +18,7 @@ export class Speciality {
     createdAt: string;
 
     @Field()
-    @UpdateDateColumn({ type: "timestamp" })
+    @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: number;
 
     @Field(() => Application)

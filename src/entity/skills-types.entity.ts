@@ -5,7 +5,6 @@ import { Skill } from './skills.entity';
 @ObjectType()
 @Entity()
 export class SkillType {
-
     @Field()
     @PrimaryGeneratedColumn()
     id: number;
@@ -19,10 +18,10 @@ export class SkillType {
     createdAt: string;
 
     @Field()
-    @UpdateDateColumn({ type: "timestamp" })
+    @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: number;
 
-    @Field((type) => Skill)
-    @OneToMany((type) => Skill, skill => skill.skillType, { lazy: true })
+    @Field(() => Skill)
+    @OneToMany(() => Skill, skill => skill.skillType, { lazy: true })
     public skill!: Skill[];
 }
