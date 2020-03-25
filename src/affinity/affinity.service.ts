@@ -11,22 +11,22 @@ export class AffinityService {
 
     constructor(
         @InjectRepository(Affinity)
-        private readonly _repository: Repository<Affinity>
+        private readonly repository: Repository<Affinity>,
     ) { }
 
-    async findAll(args?: Object): Promise<Affinity[]> {
-        return await this._repository.find({ where: getValidParams(args) });
+    async findAll(args?: any): Promise<Affinity[]> {
+        return await this.repository.find({ where: getValidParams(args) });
     }
 
     async findOne(id: number): Promise<Affinity> {
-        return await this._repository.findOne({ where: { id } });
+        return await this.repository.findOne({ where: { id } });
     }
 
     async create(input: AffinityInput): Promise<Affinity> {
-        let record = {
+        const record = {
             ...input,
-            createdAt: Date.now().toString()
-        }
-        return await this._repository.save(record);
+            createdAt: Date.now().toString(),
+        };
+        return await this.repository.save(record);
     }
 }

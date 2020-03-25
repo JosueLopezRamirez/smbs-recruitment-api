@@ -30,10 +30,9 @@ export class ApplicationInput {
     @Field(() => Int, { nullable: false })
     public modalityId!: number;
 
-    @Field(()=> Int, { nullable: false })
+    @Field(() => Int, { nullable: false })
     public languageId!: number;
 
     @Field(() => Int, { nullable: false })
     public specialityId!: number;
-
 }

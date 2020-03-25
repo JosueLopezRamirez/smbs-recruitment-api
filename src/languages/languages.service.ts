@@ -11,23 +11,23 @@ export class LanguagesService {
 
     constructor(
         @InjectRepository(Languages)
-        private readonly _repository: Repository<Languages>
+        private readonly repository: Repository<Languages>,
     ) { }
 
-    async findAll(args?: Object): Promise<Languages[]> {
-        return await this._repository.find({ where: getValidParams(args) });
+    async findAll(args?: any): Promise<Languages[]> {
+        return await this.repository.find({ where: getValidParams(args) });
     }
 
     async findOne(id: number): Promise<Languages> {
-        return await this._repository.findOne({ where: { id } });
+        return await this.repository.findOne({ where: { id } });
     }
 
     async create(input: LanguagesInput): Promise<Languages> {
-        let record = {
+        const record = {
             ...input,
-            createdAt: Date.now().toString()
-        }
-        return await this._repository.save(record);
+            createdAt: Date.now().toString(),
+        };
+        return await this.repository.save(record);
     }
 
 }

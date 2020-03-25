@@ -9,22 +9,22 @@ import { SpecialityService } from './speciality.service';
 export class SpecialityResolver {
 
     constructor(
-        private readonly _service: SpecialityService
+        private readonly service: SpecialityService,
     ) { }
 
     @Query(() => [Speciality])
     async specialitys(@Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
-        return await this._service.findAll({ id });
+        return await this.service.findAll({ id });
     }
 
     @Query(() => Speciality, { nullable: true })
     async speciality(@Args({ name: 'id', nullable: false, type: () => Int }) id: number) {
-        return await this._service.findOne(id);
+        return await this.service.findOne(id);
     }
 
     @Mutation(() => Speciality)
     async createSpeciality(@Args('input') input: SpecialityInput): Promise<Speciality> {
-        return await this._service.create(input);
+        return await this.service.create(input);
     }
 
 }

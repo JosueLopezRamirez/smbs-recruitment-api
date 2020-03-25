@@ -9,21 +9,21 @@ import { Languages } from './../entity/languages.entity';
 export class LanguagesResolver {
 
     constructor(
-        private readonly _service: LanguagesService
+        private readonly service: LanguagesService,
     ) { }
 
     @Query(() => [Languages])
     async languages(@Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
-        return await this._service.findAll({ id });
+        return await this.service.findAll({ id });
     }
 
     @Query(() => Languages, { nullable: true })
     async language(@Args({ name: 'id', nullable: false, type: () => Int }) id: number) {
-        return await this._service.findOne(id);
+        return await this.service.findOne(id);
     }
 
     @Mutation(() => Languages)
     async createLanguage(@Args('input') input: LanguagesInput): Promise<Languages> {
-        return await this._service.create(input);
+        return await this.service.create(input);
     }
 }

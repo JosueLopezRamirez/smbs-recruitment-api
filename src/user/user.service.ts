@@ -10,25 +10,25 @@ export class UserService {
 
     constructor(
         @InjectRepository(User)
-        private readonly _repository: Repository<User>
+        private readonly repository: Repository<User>,
     ) { }
 
-    async findAll(args?: Object): Promise<User[]> {
-        return await this._repository.find({ where: getValidParams(args) });
+    async findAll(args?: any): Promise<User[]> {
+        return await this.repository.find({ where: getValidParams(args) });
     }
 
     async findOne(id: number): Promise<User> {
-        return await this._repository.findOne({ where: { id } });
+        return await this.repository.findOne({ where: { id } });
     }
 
     async create(input: UserInput): Promise<User> {
 
-        let record = {
+        const record = {
             ...input,
-            createdAt: Date.now().toString()
+            createdAt: Date.now().toString(),
         };
 
-        return await this._repository.save(record);
+        return await this.repository.save(record);
     }
 
 }

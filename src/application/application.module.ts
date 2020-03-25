@@ -7,7 +7,10 @@ import { Skill } from '../entity/skills.entity';
 import { ApplicationSkill } from '../entity/application-skills.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Application, Skill, ApplicationSkill]),],
-  providers: [ApplicationResolver, ApplicationService]
+  imports: [
+    TypeOrmModule.forFeature([Application, Skill, ApplicationSkill]),
+  ],
+  providers: [ApplicationResolver, ApplicationService],
 })
+
 export class ApplicationModule { }

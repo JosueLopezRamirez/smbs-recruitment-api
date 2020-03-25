@@ -47,7 +47,7 @@ export class Application {
     createdAt: string;
 
     @Field()
-    @UpdateDateColumn({ type: "timestamp" })
+    @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: number;
 
     @Column()
@@ -62,30 +62,35 @@ export class Application {
     @Column()
     specialityId!: number;
 
-    @Field(type => [ApplicationSkill], { nullable: true })
-    @OneToMany((type) => ApplicationSkill, applicationSkill => applicationSkill.application, { lazy: true, cascade: ['insert'] })
+    @Field(() => [ApplicationSkill], { nullable: true })
+    @OneToMany(() => ApplicationSkill, applicationSkill => applicationSkill.application, { lazy: true, cascade: ['insert'] })
     public applicationSkill!: ApplicationSkill[];
 
     /**
      * Relaciones correspondientes a llaves foraneas
      */
-    @Field(type => Affinity, { nullable: true })
-    @ManyToOne(type => Affinity, affinity => affinity.application, { lazy: true, cascade: ['insert'] })
+    @Field(() => Affinity, { nullable: true })
+    @ManyToOne(() => Affinity, affinity => affinity.application, { lazy: true, cascade: ['insert'] })
     public affinity!: Affinity;
 
-    @Field(type => Modality, { nullable: true })
-    @ManyToOne(type => Modality, modality => modality.application, { lazy: true, cascade: ['insert'] })
+    @Field(() => Modality, { nullable: true })
+    @ManyToOne(() => Modality, modality => modality.application, { lazy: true, cascade: ['insert'] })
     public modality!: Modality;
 
-    @Field(type => Languages, { nullable: true })
-    @ManyToOne(type => Languages, language => language.application, { lazy: true, cascade: ['insert'] })
+    @Field(() => Languages, { nullable: true })
+    @ManyToOne(() => Languages, language => language.application, { lazy: true, cascade: ['insert'] })
     public language!: Languages;
 
-    @Field(type => Speciality, { nullable: true })
-    @ManyToOne(type => Speciality, speciality => speciality.application, { lazy: true, cascade: ['insert'] })
+    @Field(() => Speciality, { nullable: true })
+    @ManyToOne(() => Speciality, speciality => speciality.application, { lazy: true, cascade: ['insert'] })
     public speciality!: Speciality;
 
-    constructor(params?: { name: string, lastName: string, phone: string, email: string, englishLevel: number, url: string, yearsExperience: number, affinityId: number, modalityId: number, languageId: number, specialityId: number  }) {
+    constructor(
+        params?: {
+            name: string, lastName: string, phone: string, email: string, englishLevel: number, url: string,
+            yearsExperience: number, affinityId: number, modalityId: number, languageId: number, specialityId: number,
+        },
+    ) {
         if (params) {
             this.name = params.name;
             this.lastName = params.lastName;

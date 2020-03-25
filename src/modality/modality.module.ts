@@ -6,7 +6,7 @@ import { ModalityResolver } from './modality.resolver';
 import { Modality } from './../entity/modality.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Modality])],
-  providers: [ModalityService, ModalityResolver]
+  imports: [TypeOrmModule.forFeature([Modality])],
+  providers: [ModalityService, ModalityResolver],
 })
 export class ModalityModule {}

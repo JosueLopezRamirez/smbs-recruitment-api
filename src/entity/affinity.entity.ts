@@ -20,7 +20,7 @@ export class Affinity {
     createdAt: string;
 
     @Field()
-    @UpdateDateColumn({ type: "timestamp" })
+    @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: number;
 
     @Field(() => Application)

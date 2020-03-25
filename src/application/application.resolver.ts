@@ -8,29 +8,29 @@ import { ApplicationSkillInput } from '../application-skill/dto/application-skil
 @Resolver('Application')
 export class ApplicationResolver {
     constructor(
-        private readonly _service: ApplicationService
+        private readonly service: ApplicationService,
     ) { }
 
     @Query(() => [Application])
     async applications(@Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
-        return await this._service.findAll({ id });
+        return await this.service.findAll({ id });
     }
 
     @Query(() => Application, { nullable: true })
     async application(@Args({ name: 'id', nullable: false, type: () => Int }) id: number) {
-        return await this._service.findOne(id);
+        return await this.service.findOne(id);
     }
 
     @Mutation(() => Application)
     async createApplicationWithSkills(
         @Args('application') application: ApplicationInput,
-        @Args({ name: 'skills', type: () => [ApplicationSkillInput], }) skillIds
+        @Args({ name: 'skills', type: () => [ApplicationSkillInput] }) skillIds,
     ): Promise<Application> {
-        return await this._service.createWithSkills(application, skillIds);
+        return await this.service.createWithSkills(application, skillIds);
     }
 
     @Mutation(() => Application)
     async createApplication(@Args('input') input: ApplicationInput): Promise<Application> {
-        return await this._service.create(input);
+        return await this.service.create(input);
     }
 }

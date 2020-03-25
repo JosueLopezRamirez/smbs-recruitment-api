@@ -12,39 +12,39 @@ import { ApplicationSkillInput } from 'src/application-skill/dto/application-ski
 @Injectable()
 export class ApplicationService {
     constructor(
-        @InjectRepository(Application)
-        private readonly _repository: Repository<Application>,
-        @InjectRepository(Skill)
-        private readonly _repositorySkill: Repository<Skill>,
+        @InjectRepository(Application) private readonly repository: Repository<Application>,
+        @InjectRepository(Skill) private readonly repositorySkill: Repository<Skill>,
     ) { }
 
-    async findAll(args?: Object): Promise<Application[]> {
-        return await this._repository.find({ where: getValidParams(args) });
+    async findAll(args?: any): Promise<Application[]> {
+        return await this.repository.find({ where: getValidParams(args) });
     }
 
     async findOne(id: number): Promise<Application> {
-        return await this._repository.findOne({ where: { id } });
+        return await this.repository.findOne({ where: { id } });
     }
 
     async create(input: ApplicationInput): Promise<Application> {
-        let record = {
+        const record = {
             ...input,
-            createdAt: Date.now().toString()
-        }
-        return await this._repository.save(record);
+            createdAt: Date.now().toString(),
+        };
+
+        return await this.repository.save(record);
     }
 
     async createWithSkills(application: ApplicationInput, skills: [ApplicationSkillInput]): Promise<Application> {
-
         let filter: object;
-        if (skills.length > 0)
+        if (skills.length > 0) {
             filter = { id: In(skills.map((sk) => sk.id)) };
+        }
 
-        let newApplication = new Application(application);
-        let newSkills = await this._repositorySkill.find({ where: filter });
-        let applicationSkills: ApplicationSkill[] = newSkills.map((nsk) => {
-            let newAppSkill = new ApplicationSkill();
-            let foundSkill = skills.find(sk => sk.id === nsk.id);
+        const newApplication = new Application(application);
+        const newSkills = await this.repositorySkill.find({ where: filter });
+        const applicationSkills: ApplicationSkill[] = newSkills.map((nsk) => {
+            let newAppSkill;
+            newAppSkill = new ApplicationSkill();
+            const foundSkill = skills.find(sk => sk.id === nsk.id);
 
             newAppSkill.skill = nsk;
             newAppSkill.application = newApplication;
@@ -54,8 +54,7 @@ export class ApplicationService {
 
         newApplication.applicationSkill = applicationSkills;
 
-        return await this._repository.save(newApplication);
-
+        return await this.repository.save(newApplication);
     }
 
 }

@@ -8,22 +8,22 @@ import { Int } from 'type-graphql';
 export class AffinityResolver {
 
     constructor(
-        private readonly _service: AffinityService
+        private readonly service: AffinityService,
     ) { }
 
     @Query(() => [Affinity])
     async affinitys(@Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
-        return await this._service.findAll({ id });
+        return await this.service.findAll({ id });
     }
 
     @Query(() => Affinity, { nullable: true })
     async affinity(@Args({ name: 'id', nullable: false, type: () => Int }) id: number) {
-        return await this._service.findOne(id);
+        return await this.service.findOne(id);
     }
 
     @Mutation(() => Affinity)
     async createAffinity(@Args('input') input: AffinityInput): Promise<Affinity> {
-        return await this._service.create(input);
+        return await this.service.create(input);
     }
 
 }

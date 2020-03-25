@@ -1,12 +1,10 @@
 import { Application } from './applications.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { ObjectType, Field } from 'type-graphql';
-import { ApplicationSkill } from './application-skills.entity';
 
 @ObjectType()
 @Entity()
 export class Modality {
-
     @Field()
     @PrimaryGeneratedColumn()
     id: number;
@@ -20,7 +18,7 @@ export class Modality {
     createdAt: string;
 
     @Field()
-    @UpdateDateColumn({ type: "timestamp" })
+    @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: number;
 
     @Field(() => Application)

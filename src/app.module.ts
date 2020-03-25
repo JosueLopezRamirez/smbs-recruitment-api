@@ -17,22 +17,22 @@ import { AffinityModule } from './affinity/affinity.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      "type": "postgres",
-      "host": "tumidb.cbvpubcios7n.us-east-2.rds.amazonaws.com",
-      "port": 5432,
-      "username": "tumiusr",
-      "password": "Nicaragu^&jkiu#z",
-      "database": "recruitment",
-      "synchronize": false,
-      "logging": true,
-      "entities": [__dirname + '/**/*.entity{.ts,.js}'],
+      type: 'postgres',
+      host: 'tumidb.cbvpubcios7n.us-east-2.rds.amazonaws.com',
+      port: 5432,
+      username: 'tumiusr',
+      password: 'Nicaragu^&jkiu#z',
+      database: 'recruitment',
+      synchronize: false,
+      logging: true,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
     UserModule,
     GraphQLModule.forRoot({
       debug: false,
       playground: true,
       introspection: true,
-      autoSchemaFile: 'schema.gql'
+      autoSchemaFile: 'schema.gql',
     }),
     ApplicationModule,
     SkillModule,

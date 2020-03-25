@@ -7,20 +7,20 @@ import { Int } from 'type-graphql';
 @Resolver('User')
 export class UserResolver {
     constructor(
-        private readonly _service: UserService,
+        private readonly service: UserService,
     ) { }
 
     @Query(() => [User])
     async users(@Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
-        return await this._service.findAll({ id });
+        return await this.service.findAll({ id });
     }
 
     @Query(() => User, { nullable: true })
     async user(@Args({ name: 'id', nullable: false, type: () => Int }) id: number) {
-        return await this._service.findOne(id);
+        return await this.service.findOne(id);
     }
     @Mutation(() => User)
     async createUser(@Args('input') input: UserInput): Promise<User> {
-        return await this._service.create(input);
+        return await this.service.create(input);
     }
 }

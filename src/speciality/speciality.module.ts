@@ -7,6 +7,6 @@ import { SpecialityResolver } from './speciality.resolver';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Speciality])],
-  providers: [SpecialityService, SpecialityResolver]
+  providers: [SpecialityService, SpecialityResolver],
 })
 export class SpecialityModule {}

@@ -7,21 +7,21 @@ import { Int } from 'type-graphql';
 @Resolver('Skill')
 export class SkillResolver {
     constructor(
-        private readonly _service: SkillService
+        private readonly service: SkillService,
     ) { }
 
     @Query(() => [Skill])
     async skills(@Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
-        return await this._service.findAll({ id });
+        return await this.service.findAll({ id });
     }
 
     @Query(() => Skill, { nullable: true })
     async skill(@Args({ name: 'id', nullable: false, type: () => Int }) id: number) {
-        return await this._service.findOne(id);
+        return await this.service.findOne(id);
     }
 
     @Mutation(() => Skill)
     async createSkill(@Args('input') input: SkillInput): Promise<Skill> {
-        return await this._service.create(input);
+        return await this.service.create(input);
     }
 }
