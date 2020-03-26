@@ -4,7 +4,7 @@
    "port": 5432,
    "username": "tumiusr",
    "password": "Nicaragu^&jkiu#z",
-   "database": "recruitment",
+   "database": "recruitment_dev",
    "synchronize": true,
    "logging": false,
    "entities": [
