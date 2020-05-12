@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
+
 import { UserModule } from './user/user.module';
 import { ApplicationModule } from './application/application.module';
 import { SkillModule } from './skill/skill.module';
@@ -13,9 +15,11 @@ import { LanguagesModule } from './languages/languages.module';
 import { ModalityModule } from './modality/modality.module';
 import { SpecialityModule } from './speciality/speciality.module';
 import { AffinityModule } from './affinity/affinity.module';
+import { CronTaskModule } from './cron-task/cron-task.module';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'tumidb.cbvpubcios7n.us-east-2.rds.amazonaws.com',
@@ -42,6 +46,7 @@ import { AffinityModule } from './affinity/affinity.module';
     AffinityModule,
     ModalityModule,
     SpecialityModule,
+    CronTaskModule,
   ],
   providers: [ApplicationSkillService, ApplicationSkillResolver],
 })

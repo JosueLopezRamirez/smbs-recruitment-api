@@ -61,21 +61,6 @@ input ApplicationSkillInput {
   isMain: Boolean = false
 }
 
-type DescribeYourself {
-  id: Float!
-  name: String!
-  createdAt: String!
-  updatedAt: Float!
-  applicationSkill: [ApplicationSkill!]!
-}
-
-type Language {
-  id: Float!
-  name: String!
-  createdAt: String!
-  updatedAt: Float!
-}
-
 type Languages {
   id: Float!
   name: String!
