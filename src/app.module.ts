@@ -13,16 +13,18 @@ import { LanguagesModule } from './languages/languages.module';
 import { ModalityModule } from './modality/modality.module';
 import { SpecialityModule } from './speciality/speciality.module';
 import { AffinityModule } from './affinity/affinity.module';
+import * as dotenv from 'dotenv';
 
+dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'tumidb.cbvpubcios7n.us-east-2.rds.amazonaws.com',
-      port: 5432,
-      username: 'tumiusr',
-      password: 'Nicaragu^&jkiu#z',
-      database: 'recruitment',
+      host: process.env.DB_HOST,
+      port: Number.parseInt(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       synchronize: false,
       logging: true,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
