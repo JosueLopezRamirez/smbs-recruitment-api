@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
+
 import { UserModule } from './user/user.module';
 import { ApplicationModule } from './application/application.module';
 import { SkillModule } from './skill/skill.module';
@@ -13,11 +15,13 @@ import { LanguagesModule } from './languages/languages.module';
 import { ModalityModule } from './modality/modality.module';
 import { SpecialityModule } from './speciality/speciality.module';
 import { AffinityModule } from './affinity/affinity.module';
+import { CronTaskModule } from './cron-task/cron-task.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -44,6 +48,7 @@ dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
     AffinityModule,
     ModalityModule,
     SpecialityModule,
+    CronTaskModule,
   ],
   providers: [ApplicationSkillService, ApplicationSkillResolver],
 })
