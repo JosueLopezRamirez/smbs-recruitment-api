@@ -7,30 +7,44 @@ import { ApplicationSkillInput } from '../application-skill/dto/application-skil
 
 @Resolver('Application')
 export class ApplicationResolver {
-    constructor(
-        private readonly service: ApplicationService,
-    ) { }
+  constructor(private readonly service: ApplicationService) {}
 
-    @Query(() => [Application])
-    async applications(@Args({ name: 'id', nullable: true, type: () => Int }) id: number) {
-        return await this.service.findAll({ id });
-    }
+  @Query(() => [Application])
+  async applications(
+    @Args({ name: 'id', nullable: true, type: () => Int }) id: number,
+  ) {
+    return await this.service.findAll({ id });
+  }
 
-    @Query(() => Application, { nullable: true })
-    async application(@Args({ name: 'id', nullable: false, type: () => Int }) id: number) {
-        return await this.service.findOne(id);
-    }
+  @Query(() => [Application])
+  async applicationsByName(
+    @Args({ name: 'name', nullable: true, type: () => String }) name?: string,
+    @Args({ name: 'skill', nullable: true, type: () => Int }) skill?: number,
+    @Args({ name: 'affinity', nullable: true, type: () => Int })
+    affinity?: number,
+  ) {
+    return await this.service.findAllByName({ name, skill, affinity });
+  }
 
-    @Mutation(() => Application)
-    async createApplicationWithSkills(
-        @Args('application') application: ApplicationInput,
-        @Args({ name: 'skills', type: () => [ApplicationSkillInput] }) skillIds,
-    ): Promise<Application> {
-        return await this.service.createWithSkills(application, skillIds);
-    }
+  @Query(() => Application, { nullable: true })
+  async application(
+    @Args({ name: 'id', nullable: false, type: () => Int }) id: number,
+  ) {
+    return await this.service.findOne(id);
+  }
 
-    @Mutation(() => Application)
-    async createApplication(@Args('input') input: ApplicationInput): Promise<Application> {
-        return await this.service.create(input);
-    }
+  @Mutation(() => Application)
+  async createApplicationWithSkills(
+    @Args('application') application: ApplicationInput,
+    @Args({ name: 'skills', type: () => [ApplicationSkillInput] }) skillIds,
+  ): Promise<Application> {
+    return await this.service.createWithSkills(application, skillIds);
+  }
+
+  @Mutation(() => Application)
+  async createApplication(
+    @Args('input') input: ApplicationInput,
+  ): Promise<Application> {
+    return await this.service.create(input);
+  }
 }

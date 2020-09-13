@@ -101,6 +101,7 @@ type Query {
   users(id: Int): [User!]!
   user(id: Int!): User
   applications(id: Int): [Application!]!
+  applicationsByName(affinity: Int, skill: Int, name: String): [Application!]!
   application(id: Int!): Application
   skills(id: Int): [Skill!]!
   skill(id: Int!): Skill
