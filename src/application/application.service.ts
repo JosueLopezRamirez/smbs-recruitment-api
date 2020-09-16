@@ -11,50 +11,84 @@ import { ApplicationSkillInput } from 'src/application-skill/dto/application-ski
 
 @Injectable()
 export class ApplicationService {
-    constructor(
-        @InjectRepository(Application) private readonly repository: Repository<Application>,
-        @InjectRepository(Skill) private readonly repositorySkill: Repository<Skill>,
-    ) { }
+  constructor(
+    @InjectRepository(Application)
+    private readonly repository: Repository<Application>,
+    @InjectRepository(Skill)
+    private readonly repositorySkill: Repository<Skill>,
+  ) {}
 
-    async findAll(args?: any): Promise<Application[]> {
-        return await this.repository.find({ where: getValidParams(args) });
+  async findAll(args?: any): Promise<Application[]> {
+    return await this.repository.find({ where: getValidParams(args) });
+  }
+
+  async findAllByName(args?: any): Promise<Application[]> {
+    let query = this.repository.createQueryBuilder('application');
+
+    if (args.name.length) {
+      query.where(`LOWER(application.name) LIKE :name`, {
+        name: `%${args.name.toLowerCase()}%`,
+      });
     }
 
-    async findOne(id: number): Promise<Application> {
-        return await this.repository.findOne({ where: { id } });
+    if (args.affinity) {
+      query.andWhere('application.affinityId = :affinity', {
+        affinity: args.affinity,
+      });
     }
 
-    async create(input: ApplicationInput): Promise<Application> {
-        const record = {
-            ...input,
-            createdAt: Date.now().toString(),
-        };
-
-        return await this.repository.save(record);
+    if (args.skill) {
+      query.innerJoin(
+        'application_skill',
+        'ap',
+        '"ap"."applicationId" = application.id AND "ap"."skillId" = :skill',
+        { skill: args.skill },
+      );
     }
 
-    async createWithSkills(application: ApplicationInput, skills: [ApplicationSkillInput]): Promise<Application> {
-        let filter: object;
-        if (skills.length > 0) {
-            filter = { id: In(skills.map((sk) => sk.id)) };
-        }
+    if (args.name.length || args.affinity || args.skill) {
+      return query.getMany();
+    }
+    return await this.repository.find();
+  }
 
-        const newApplication = new Application(application);
-        const newSkills = await this.repositorySkill.find({ where: filter });
-        const applicationSkills: ApplicationSkill[] = newSkills.map((nsk) => {
-            let newAppSkill;
-            newAppSkill = new ApplicationSkill();
-            const foundSkill = skills.find(sk => sk.id === nsk.id);
+  async findOne(id: number): Promise<Application> {
+    return await this.repository.findOne({ where: { id } });
+  }
 
-            newAppSkill.skill = nsk;
-            newAppSkill.application = newApplication;
-            newAppSkill.isMain = foundSkill ? foundSkill.isMain : false;
-            return newAppSkill;
-        });
+  async create(input: ApplicationInput): Promise<Application> {
+    const record = {
+      ...input,
+      createdAt: Date.now().toString(),
+    };
 
-        newApplication.applicationSkill = applicationSkills;
+    return await this.repository.save(record);
+  }
 
-        return await this.repository.save(newApplication);
+  async createWithSkills(
+    application: ApplicationInput,
+    skills: [ApplicationSkillInput],
+  ): Promise<Application> {
+    let filter: object;
+    if (skills.length > 0) {
+      filter = { id: In(skills.map(sk => sk.id)) };
     }
 
+    const newApplication = new Application(application);
+    const newSkills = await this.repositorySkill.find({ where: filter });
+    const applicationSkills: ApplicationSkill[] = newSkills.map(nsk => {
+      let newAppSkill;
+      newAppSkill = new ApplicationSkill();
+      const foundSkill = skills.find(sk => sk.id === nsk.id);
+
+      newAppSkill.skill = nsk;
+      newAppSkill.application = newApplication;
+      newAppSkill.isMain = foundSkill ? foundSkill.isMain : false;
+      return newAppSkill;
+    });
+
+    newApplication.applicationSkill = applicationSkills;
+
+    return await this.repository.save(newApplication);
+  }
 }
